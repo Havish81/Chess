@@ -21,6 +21,8 @@ Welcome to the **Voldemort** project! This repository showcases our journey in d
 1. Clone the repository:
    ```bash
    git clone https://git.txstate.edu/qmh16/Voldemort.git
+   javac Board.java Game.java Piece.java
+   java Game
 
 
 joe e havish k aeseiny I  tallon s
