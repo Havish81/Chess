@@ -1,10 +1,10 @@
 public class Pawn extends Piece {
     public Pawn(String color) {
-        super(color);
+        super(color, "Pawn");
     }
 
     @Override
     public String toString() {
-        return "P"; // or a different representation
+        return "P"; // Represents the Pawn
     }
 }
