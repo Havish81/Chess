@@ -1,6 +1,6 @@
 package chesspiece;
 
-public class Knight extends Piece {
+public class Knight extends ChessPiece {
 
     public Knight(PieceColor pieceColor) {
         super(pieceColor);

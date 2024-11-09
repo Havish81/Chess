@@ -2,12 +2,12 @@ package chesspiece;
 
 import chesspiece.position.PiecePosition;
 
-public abstract class Piece {
+public abstract class ChessPiece {
 
     private PieceColor color = PieceColor.Black;
     protected PieceType type = PieceType.None;
 
-    public Piece(PieceColor pieceColor) {
+    public ChessPiece(PieceColor pieceColor) {
         this.color = pieceColor;
     }
 

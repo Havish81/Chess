@@ -1,19 +1,26 @@
+
+import chessboard.*;
 import java.util.Scanner;
 
 public class Game {
-    private final Board board; // Declare as final
+
+    private final ConsoleChessBoard board; // Declare as final
     private final Scanner scanner; // Declare as final
 
     public Game() {
-        board = new Board(); // Initialize the board
+        board = new ConsoleChessBoard(); // Initialize the board
         scanner = new Scanner(System.in); // Initialize the scanner
     }
 
     public void start() {
         while (true) {
             board.display(); // Display the board state
-            System.out.print("Enter your move (e.g., e4): "); // Prompt for user input
+            System.out.print("Enter your move (e.g., e4) or Q to exit: "); // Prompt for user input
             String move = scanner.nextLine(); // Get user input
+
+            if ("Q".equals(move) || "q".equals(move)) {
+                break;
+            }
 
             // Use the move variable here
             if (isValidMove(move)) {
