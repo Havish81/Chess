@@ -8,8 +8,8 @@ public class Game {
     private final ConsoleChessBoard board;
     private final Scanner scanner;
 
-    private Player whitePlayer;
-    private Player blackPlayer;
+    private final Player whitePlayer;
+    private final Player blackPlayer;
     private Player currentPlayer;
 
     public Game() {
@@ -27,7 +27,7 @@ public class Game {
             board.display();
 
             // Prompt for user input
-            System.out.printf("Player: %s. Enter your move (e.g., e4) or Q to exit: ", currentPlayer.getName());
+            System.out.printf("Player: %s. Enter your move (e.g. e4) or Q to exit: ", currentPlayer.getName());
             String move = scanner.nextLine();
 
             // If the user asked to quite than terminate the program
@@ -54,7 +54,7 @@ public class Game {
         // Implement your logic to validate the move
         // For example, checking the format of the move (e.g., e4, g5, etc.)
         // For now, let's just return true to proceed
-        return move.matches("[a-h][1-8]"); // Basic validation: e.g., e4
+        return move.matches("[a-h][1-8] [a-h][1-8]"); // Basic validation: e.g., e4
     }
 
     private void makeMove(String move) {

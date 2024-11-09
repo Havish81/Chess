@@ -18,7 +18,7 @@ public class ConsoleChessBoard extends ChessBoard {
      */
     public void display() {
         // Display the header row
-        System.out.println("  A  B  C  D  E  F  G  H");
+        System.out.println("\n  A  B  C  D  E  F  G  H");
 
         // Display pieces
         for (int i = 0; i < BOARD_SIZE; i++) {
