@@ -2,12 +2,20 @@ package chessboard;
 
 import chesspiece.*;
 
+/**
+ * The `ConsoleChessBoard` class extends `ChessBoard` and provides a method to display the chess board
+ * in the console with pieces represented by characters.
+ */
 public class ConsoleChessBoard extends ChessBoard {
 
     public ConsoleChessBoard() {
         super();
     }
 
+    /**
+     * The `display` function prints out the chess board with pieces represented by characters and
+     * empty cells with specific formatting.
+     */
     public void display() {
         // Display the header row
         System.out.println("  A  B  C  D  E  F  G  H");

@@ -1,23 +1,36 @@
 
 import chessboard.*;
+import chesspiece.PieceColor;
 import java.util.Scanner;
 
 public class Game {
 
-    private final ConsoleChessBoard board; // Declare as final
-    private final Scanner scanner; // Declare as final
+    private final ConsoleChessBoard board;
+    private final Scanner scanner;
+
+    private Player whitePlayer;
+    private Player blackPlayer;
+    private Player currentPlayer;
 
     public Game() {
-        board = new ConsoleChessBoard(); // Initialize the board
-        scanner = new Scanner(System.in); // Initialize the scanner
+        board = new ConsoleChessBoard();
+        scanner = new Scanner(System.in);
+
+        whitePlayer = new Player("White", PieceColor.White);
+        blackPlayer = new Player("Black", PieceColor.Black);
+        currentPlayer = whitePlayer;
     }
 
     public void start() {
         while (true) {
-            board.display(); // Display the board state
-            System.out.print("Enter your move (e.g., e4) or Q to exit: "); // Prompt for user input
-            String move = scanner.nextLine(); // Get user input
+            // Display the board
+            board.display();
 
+            // Prompt for user input
+            System.out.printf("Player: %s. Enter your move (e.g., e4) or Q to exit: ", currentPlayer.getName());
+            String move = scanner.nextLine();
+
+            // If the user asked to quite than terminate the program
             if ("Q".equals(move) || "q".equals(move)) {
                 break;
             }
@@ -25,6 +38,12 @@ public class Game {
             // Use the move variable here
             if (isValidMove(move)) {
                 makeMove(move); // Execute the move if valid
+
+                if (currentPlayer.getColor() == PieceColor.White) {
+                    currentPlayer = blackPlayer;
+                } else {
+                    currentPlayer = whitePlayer;
+                }
             } else {
                 System.out.println("Invalid move, try again."); // Prompt for another input if invalid
             }

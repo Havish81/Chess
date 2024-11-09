@@ -2,6 +2,9 @@ package chessboard;
 
 import chesspiece.*;
 
+/**
+ * The `ChessBoard` class represents a chess board with pieces initialized in their starting positions.
+ */
 public abstract class ChessBoard {
 
     protected static final int BOARD_SIZE = 8;
