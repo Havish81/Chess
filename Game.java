@@ -1,7 +1,12 @@
 
-import chessboard.*;
-import chesspiece.PieceColor;
+import board.*;
 import java.util.Scanner;
+import piece.PieceColor;
+import piece.position.PieceMove;
+import piece.position.PiecePosition;
+import piece.position.PiecePositionColumn;
+import piece.position.PiecePositionRow;
+import player.Player;
 
 public class Game {
 
@@ -27,17 +32,37 @@ public class Game {
             board.display();
 
             // Prompt for user input
-            System.out.printf("Player: %s. Enter your move (e.g. e4) or Q to exit: ", currentPlayer.getName());
+            System.out.printf("Player: %s. Enter your move (e. g. a2 a4) or Q to exit: ", currentPlayer.getName());
             String move = scanner.nextLine();
 
             // If the user asked to quite than terminate the program
-            if ("Q".equals(move) || "q".equals(move)) {
+            if (canQuit(move)) {
                 break;
             }
 
-            // Use the move variable here
-            if (isValidMove(move)) {
-                makeMove(move); // Execute the move if valid
+            PieceMove pieceMove = parseMove(move);
+
+            if (pieceMove != null) {
+                board.movePiece(pieceMove);
+                System.out.println("You moved: " + move);
+
+                if (board.isCheck(whitePlayer)) {
+                    System.out.println("White is in check.");
+                }
+
+                if (board.isCheck(blackPlayer)) {
+                    System.out.println("White is in check.");
+                }
+
+                if (board.isCheckmate(whitePlayer)) {
+                    System.out.println("White is in checkmate. Black is a winner.");
+                    break;
+                }
+
+                if (board.isCheck(blackPlayer)) {
+                    System.out.println("Black is in checkmate. White is a winner.");
+                    break;
+                }
 
                 if (currentPlayer.getColor() == PieceColor.White) {
                     currentPlayer = blackPlayer;
@@ -50,21 +75,21 @@ public class Game {
         }
     }
 
-    private boolean isValidMove(String move) {
-        // Implement your logic to validate the move
-        // For example, checking the format of the move (e.g., e4, g5, etc.)
-        // For now, let's just return true to proceed
-        return move.matches("[a-h][1-8] [a-h][1-8]"); // Basic validation: e.g., e4
-    }
-
-    private void makeMove(String move) {
-        // Implement your logic to update the board state based on the move
-        // Example: move a piece from the specified position
-        System.out.println("You moved: " + move); // Display the move for confirmation
-        // Update your board here based on the move
+    private PieceMove parseMove(String move) {
+        if (move.matches("[a-h][1-8] [a-h][1-8]")) {
+            PiecePosition from = new PiecePosition(PiecePositionRow.Row7, PiecePositionColumn.A);
+            PiecePosition to = new PiecePosition(PiecePositionRow.Row6, PiecePositionColumn.A);
+            return new PieceMove(from, to);
+        } else {
+            return null;
+        }
     }
 
     public static void main(String[] args) {
         new Game().start(); // Start the game
+    }
+
+    private boolean canQuit(String move) {
+        return "Q".equals(move) || "q".equals(move);
     }
 }

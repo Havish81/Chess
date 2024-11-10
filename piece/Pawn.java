@@ -1,4 +1,4 @@
-package chesspiece;
+package piece;
 
 /**
  * The Pawn class extends ChessPiece and represents a pawn chess piece with a specified color.

@@ -1,4 +1,4 @@
-package chesspiece;
+package piece;
 
 /**
  * The Queen class extends ChessPiece and represents a queen chess piece with a specified color.

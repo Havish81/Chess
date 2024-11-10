@@ -1,4 +1,4 @@
-package chesspiece;
+package piece;
 
 /**
  * The Bishop class extends ChessPiece and represents a bishop chess piece with a specified color.

@@ -1,5 +1,6 @@
+package player;
 
-import chesspiece.PieceColor;
+import piece.PieceColor;
 
 /**
  * The Player class represents a player in a game with a name and a piece color.

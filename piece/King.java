@@ -1,4 +1,4 @@
-package chesspiece;
+package piece;
 
 /**
  * The King class extends ChessPiece and represents a king piece in chess with a specified color.

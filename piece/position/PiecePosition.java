@@ -1,4 +1,4 @@
-package chesspiece.position;
+package piece.position;
 
 /**
  * The PiecePosition class represents the position of a piece on a board using row and column

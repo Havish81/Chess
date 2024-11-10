@@ -1,6 +1,6 @@
-package chessboard;
+package board;
 
-import chesspiece.*;
+import piece.*;
 
 /**
  * The `ConsoleChessBoard` class extends `ChessBoard` and provides a method to display the chess board

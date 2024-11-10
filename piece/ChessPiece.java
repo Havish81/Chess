@@ -1,6 +1,6 @@
-package chesspiece;
+package piece;
 
-import chesspiece.position.PiecePosition;
+import piece.position.PiecePosition;
 
 /**
  * The abstract class `ChessPiece` represents a chess piece with color and type properties, providing

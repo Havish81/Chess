@@ -1,4 +1,4 @@
-package chesspiece;
+package piece;
 
 /**
  * The Knight class represents a knight chess piece with a specific color.
