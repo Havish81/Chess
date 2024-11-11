@@ -15,6 +15,10 @@ public abstract class ChessBoard {
 
     protected final ChessPiece[][] board;
 
+    /**
+     * The constructor initializes a 2D array representing a chess board and
+     * calls a method to set up the initial chess pieces on the board.
+     */
     public ChessBoard() {
         board = new ChessPiece[BOARD_SIZE][BOARD_SIZE];
         initializeBoard();

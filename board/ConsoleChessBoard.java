@@ -3,18 +3,21 @@ package board;
 import piece.*;
 
 /**
- * The `ConsoleChessBoard` class extends `ChessBoard` and provides a method to display the chess board
- * in the console with pieces represented by characters.
+ * The `ConsoleChessBoard` class extends `ChessBoard` and provides a method to
+ * display the chess board in the console with pieces represented by characters.
  */
 public class ConsoleChessBoard extends ChessBoard {
 
+    /**
+     * The constructor of the console version of the board.
+     */
     public ConsoleChessBoard() {
         super();
     }
 
     /**
-     * The `display` function prints out the chess board with pieces represented by characters and
-     * empty cells with specific formatting.
+     * The `display` function prints out the chess board with pieces represented
+     * by characters and empty cells with specific formatting.
      */
     public void display() {
         // Display the header row

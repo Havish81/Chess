@@ -9,11 +9,35 @@ public class PiecePosition {
     PiecePositionRow row;
     PiecePositionColumn column;
 
+    /**
+     * The constructor of PiecePosition sets the row and column of a piece on a
+     * board.
+     *
+     * @param row The `PiecePositionRow` parameter represents the row position
+     * of a piece on a game board. It is used to specify the row where a piece
+     * is located.
+     * @param column The `column` parameter in the `PiecePosition` method
+     * represents the column position of a piece on a game board. It is used to
+     * specify the column position of the piece within a row.
+     */
     public PiecePosition(PiecePositionRow row, PiecePositionColumn column) {
         this.row = row;
         this.column = column;
     }
 
+    /**
+     * The constructor of `PiecePosition` maps input row and column values to
+     * corresponding enums `PiecePositionRow` and `PiecePositionColumn`.
+     *
+     * @param row The `row` parameter in the `PiecePosition` method represents
+     * the row position of a chess piece on a chessboard. The method maps the
+     * numeric row input to an enum type `PiecePositionRow` which represents the
+     * corresponding row on the chessboard.
+     * @param column The `column` parameter in the `PiecePosition` method
+     * represents the column position of a piece on a chessboard. It is an
+     * integer value ranging from 0 to 7, where 0 corresponds to column A, 1
+     * corresponds to column B, and so on up to 7.
+     */
     public PiecePosition(int row, int column) {
         switch (row) {
             case 0:

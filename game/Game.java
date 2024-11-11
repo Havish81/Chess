@@ -1,11 +1,16 @@
+package game;
 
-import board.*;
+import board.ConsoleChessBoard;
 import java.util.Scanner;
 import piece.PieceColor;
 import piece.position.PieceMove;
 import piece.position.PiecePosition;
 import player.Player;
 
+/**
+ * The `Game` class represents a chess game with functionality for player moves,
+ * check, and checkmate detection.
+ */
 public class Game {
 
     private final ConsoleChessBoard board;
@@ -24,6 +29,11 @@ public class Game {
         currentPlayer = whitePlayer;
     }
 
+    /**
+     * The `start` function in Java implements a turn-based chess game where
+     * players can make moves, check for check and checkmate, and switch turns
+     * until the game ends.
+     */
     public void start() {
         while (true) {
             // Display the board
@@ -81,10 +91,6 @@ public class Game {
         } else {
             return null;
         }
-    }
-
-    public static void main(String[] args) {
-        new Game().start(); // Start the game
     }
 
     private boolean canQuit(String move) {

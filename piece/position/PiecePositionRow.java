@@ -1,6 +1,8 @@
 package piece.position;
 
-// This enumeration represents the rows on a chessboard, with each enum constant representing a row from 1 to 8.
+/**
+ * This enumeration represents the rows on a chessboard, with each enum constant representing a row from 1 to 8.
+ */
 public enum PiecePositionRow {
     Row1,
     Row2,
