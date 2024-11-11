@@ -4,8 +4,6 @@ import java.util.Scanner;
 import piece.PieceColor;
 import piece.position.PieceMove;
 import piece.position.PiecePosition;
-import piece.position.PiecePositionColumn;
-import piece.position.PiecePositionRow;
 import player.Player;
 
 public class Game {
@@ -77,8 +75,8 @@ public class Game {
 
     private PieceMove parseMove(String move) {
         if (move.matches("[a-h][1-8] [a-h][1-8]")) {
-            PiecePosition from = new PiecePosition(PiecePositionRow.Row7, PiecePositionColumn.A);
-            PiecePosition to = new PiecePosition(PiecePositionRow.Row6, PiecePositionColumn.A);
+            PiecePosition from = new PiecePosition(7 - (move.charAt(1) - '1'), move.charAt(0) - 'a');
+            PiecePosition to = new PiecePosition(7 - (move.charAt(4) - '1'), move.charAt(3) - 'a');
             return new PieceMove(from, to);
         } else {
             return null;
