@@ -16,9 +16,10 @@ public class ConsoleChessBoard extends ChessBoard {
     }
 
     /**
-     * The `display` function prints out the chess board with pieces represented
+     * The `display` method prints out the chess board with pieces represented
      * by characters and empty cells with specific formatting.
      */
+    @Override
     public void display() {
         // Display the header row
         System.out.println("\n  A  B  C  D  E  F  G  H");

@@ -57,6 +57,12 @@ public abstract class ChessBoard {
     }
 
     /**
+     * Displays the board.
+     */
+    public void display() {
+    }
+
+    /**
      * The function isCheck returns true to indicate whether a player is in
      * check in a game of chess.
      *
