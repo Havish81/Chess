@@ -15,20 +15,22 @@ public class ConsoleGame extends Game {
     private final Scanner scanner;
 
     /**
-     * The Game constructor initializes a chess game and sets the current player to white.
+     * The Game constructor initializes a chess game and sets the current player
+     * to white.
      */
     public ConsoleGame() {
         super();
-        
+
         board = new ConsoleChessBoard();
         scanner = new Scanner(System.in);
     }
 
     /**
-     * The `start` function in Java implements a turn-based chess game where
-     * players can make moves, check for check and checkmate, and switch turns
-     * until the game ends.
+     * The `start` method implements a turn-based chess game where players can
+     * make moves, check for check and checkmate, and switch turns until the
+     * game ends.
      */
+    @Override
     public void start() {
         while (true) {
             // Display the board
