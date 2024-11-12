@@ -29,11 +29,46 @@ public class GUIChessBoard extends JPanel {
         frame.setSize(700, 700);
         frame.setResizable(true);
 
-        boardPanel = new JPanel(new GridLayout(8, 8));
-        frame.add(boardPanel);
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(createColumnLabels(), BorderLayout.NORTH);
+        mainPanel.add(createRowLabelsAndBoard(), BorderLayout.CENTER);
+
+        frame.add(mainPanel);
         frame.setVisible(true);
 
         displayBoard();
+    }
+
+    private JPanel createColumnLabels() {
+        JPanel colLabels = new JPanel(new GridLayout(1, 8));
+        String[] columns = {"A", "B", "C", "D", "E", "F", "G", "H"};
+        for (String col : columns) {
+            JLabel label = new JLabel(col, SwingConstants.CENTER);
+            label.setFont(new Font("Arial", Font.BOLD, 16));
+            colLabels.add(label);
+        }
+        return colLabels;
+    }
+
+    private JPanel createRowLabelsAndBoard() {
+        JPanel boardWithRowLabels = new JPanel(new BorderLayout());
+        boardWithRowLabels.add(createRowLabels(), BorderLayout.WEST);
+
+        boardPanel = new JPanel(new GridLayout(8, 8));
+        boardPanel.setPreferredSize(new Dimension(600, 600));
+        boardWithRowLabels.add(boardPanel, BorderLayout.CENTER);
+
+        return boardWithRowLabels;
+    }
+
+    private JPanel createRowLabels() {
+        JPanel rowLabels = new JPanel(new GridLayout(8, 1));
+        for (int i = 8; i > 0; i--) {
+            JLabel label = new JLabel(String.valueOf(i), SwingConstants.CENTER);
+            label.setFont(new Font("Arial", Font.BOLD, 16));
+            rowLabels.add(label);
+        }
+        return rowLabels;
     }
 
     public void displayBoard() {
