@@ -75,7 +75,6 @@ public class GUIChessBoard extends JPanel {
                 selectedCol = col;
             }
         } else {
-            // Attempt to move the selected piece to the clicked square
             boolean moved = moveExecutor.apply(new int[]{selectedRow, selectedCol, row, col});
             if (moved) {
                 System.out.println("Moved piece from (" + selectedRow + ", " + selectedCol + ") to (" + row + ", " + col + ")");
@@ -103,5 +102,13 @@ public class GUIChessBoard extends JPanel {
 
     public void updateDisplay() {
         displayBoard();
+    }
+
+    /**
+     * Show the winner in a pop-up window and terminate the game.
+     */
+    public void showWinner(String winner) {
+        JOptionPane.showMessageDialog(frame, winner + " wins the game!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+        System.exit(0);  // Terminate the game after showing the message
     }
 }

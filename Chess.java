@@ -54,9 +54,14 @@ public class Chess {
         
         ChessPiece selectedPiece = board[startRow][startCol];
         if (selectedPiece != null && isValidMove(startRow, startCol, endRow, endCol)) {
-            // Capture if there's an opposing piece at the destination
             ChessPiece targetPiece = board[endRow][endCol];
             if (targetPiece != null && targetPiece.getColor() != selectedPiece.getColor()) {
+                // Check if the captured piece is a King
+                if (targetPiece instanceof King) {
+                    String winner = selectedPiece.getColor() == PieceColor.White ? "White" : "Black";
+                    guiBoard.showWinner(winner);  // Show winner pop-up
+                    return true;  // Return to terminate further moves
+                }
                 System.out.println("Captured " + targetPiece);
             }
             // Move the selected piece to the new location
