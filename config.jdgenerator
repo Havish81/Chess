@@ -62,12 +62,9 @@ Standard Doclet version 21.0.4+7-LTS
 Building tree for all the packages and classes...
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/piece/Bishop.html...
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/Chess.html...
-/Users/arseniyyakhymets/Downloads/Voldemort/Chess.java:14: warning: no @param for args
+/Users/arseniyyakhymets/Downloads/Voldemort/Chess.java:123: warning: no comment
     public static void main(String[] args) {
                        ^
-/Users/arseniyyakhymets/Downloads/Voldemort/Chess.java:9: warning: use of default constructor, which does not provide a comment
-public class Chess {
-       ^
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/board/ChessBoard.html...
 /Users/arseniyyakhymets/Downloads/Voldemort/board/ChessBoard.java:16: warning: no comment
     protected final ChessPiece[][] board;
@@ -95,9 +92,21 @@ Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/game/Game.html...
     protected Player whitePlayer;
                      ^
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/board/GUIChessBoard.html...
-/Users/arseniyyakhymets/Downloads/Voldemort/board/GUIChessBoard.java:6: warning: no comment
-public class GUIChessBoard extends ChessBoard {
+/Users/arseniyyakhymets/Downloads/Voldemort/board/GUIChessBoard.java:145: warning: no @param for winner
+    public void showWinner(String winner) {
+                ^
+/Users/arseniyyakhymets/Downloads/Voldemort/board/GUIChessBoard.java:12: warning: no comment
+public class GUIChessBoard extends JPanel {
        ^
+/Users/arseniyyakhymets/Downloads/Voldemort/board/GUIChessBoard.java:20: warning: no comment
+    public GUIChessBoard(BiFunction<Integer, Integer, ChessPiece> pieceProvider, Function<int[], Boolean> moveExecutor) {
+           ^
+/Users/arseniyyakhymets/Downloads/Voldemort/board/GUIChessBoard.java:74: warning: no comment
+    public void displayBoard() {
+                ^
+/Users/arseniyyakhymets/Downloads/Voldemort/board/GUIChessBoard.java:138: warning: no comment
+    public void updateDisplay() {
+                ^
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/game/GUIGame.html...
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/piece/King.html...
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/piece/Knight.html...
@@ -199,6 +208,25 @@ Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/piece/position/pa
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/player/package-summary.html...
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/player/package-tree.html...
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/constant-values.html...
+Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/serialized-form.html...
+/Users/arseniyyakhymets/Downloads/Voldemort/board/GUIChessBoard.java:16: warning: no comment
+    private JPanel boardPanel;
+                   ^
+/Users/arseniyyakhymets/Downloads/Voldemort/board/GUIChessBoard.java:15: warning: no comment
+    private JFrame frame;
+                   ^
+/Users/arseniyyakhymets/Downloads/Voldemort/board/GUIChessBoard.java:14: warning: no comment
+    private final Function<int[], Boolean> moveExecutor;
+                                           ^
+/Users/arseniyyakhymets/Downloads/Voldemort/board/GUIChessBoard.java:13: warning: no comment
+    private final BiFunction<Integer, Integer, ChessPiece> pieceProvider;
+                                                           ^
+/Users/arseniyyakhymets/Downloads/Voldemort/board/GUIChessBoard.java:18: warning: no comment
+    private int selectedCol = -1;
+                ^
+/Users/arseniyyakhymets/Downloads/Voldemort/board/GUIChessBoard.java:17: warning: no comment
+    private int selectedRow = -1;
+                ^
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/overview-tree.html...
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/index.html...
 Building index for all classes...
@@ -208,6 +236,6 @@ Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/index-all.html...
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/search.html...
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/overview-summary.html...
 Generating /Users/arseniyyakhymets/Downloads/Voldemort/javadoc/help-doc.html...
-35 warnings
+44 warnings
 
 
