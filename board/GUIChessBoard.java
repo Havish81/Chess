@@ -71,37 +71,45 @@ public class GUIChessBoard extends JPanel {
         return rowLabels;
     }
 
-    public void displayBoard() {
-        boardPanel.removeAll();
-
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                JButton square = new JButton();
-                square.setFont(new Font("Arial", Font.PLAIN, 24));
-                square.setHorizontalAlignment(SwingConstants.CENTER);
-
-                ChessPiece piece = pieceProvider.apply(row, col);
-                if (piece != null) {
-                    square.setText(getPieceLabel(piece));
-                }
-
-                square.setBackground((row + col) % 2 == 0 ? Color.LIGHT_GRAY : Color.DARK_GRAY);
-
-                final int r = row;
-                final int c = col;
-                square.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        handleSquareClick(r, c);
-                    }
-                });
-
-                boardPanel.add(square);
+// Inside GUIChessBoard.java
+public void displayBoard() {
+    boardPanel.removeAll();
+    
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 8; col++) {
+            JButton square = new JButton();
+            square.setFont(new Font("Arial", Font.PLAIN, 24));
+            square.setHorizontalAlignment(SwingConstants.CENTER);
+    
+            ChessPiece piece = pieceProvider.apply(row, col);
+            if (piece != null) {
+                // Now call the getImagePath method on the ChessPiece instance
+                String imagePath = piece.getImagePath();  // This will use the method from ChessPiece
+                ImageIcon pieceImage = new ImageIcon(imagePath); // Load the image as an ImageIcon
+                square.setIcon(pieceImage); // Set the image icon on the button
             }
+    
+            // Set the background color of the square
+            square.setBackground((row + col) % 2 == 0 ? Color.LIGHT_GRAY : Color.DARK_GRAY);
+    
+            final int r = row;
+            final int c = col;
+            square.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    handleSquareClick(r, c);
+                }
+            });
+    
+            boardPanel.add(square);
         }
-        boardPanel.revalidate();
-        boardPanel.repaint();
     }
+    boardPanel.revalidate();
+    boardPanel.repaint();
+}
+
+    
+    
 
     private void handleSquareClick(int row, int col) {
         if (selectedRow == -1 && selectedCol == -1) {

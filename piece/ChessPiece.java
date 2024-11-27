@@ -52,4 +52,13 @@ public abstract class ChessPiece {
     public PieceType getType() {
         return type;
     }
+
+    /**
+     * This method returns the image path for the chess piece based on its color and type.
+     */
+    public String getImagePath() {
+        String colorString = (color == PieceColor.Black) ? "b" : "w";
+        String typeString = type.toString().toLowerCase(); // e.g., "pawn", "rook", etc.
+        return "images/" + typeString + "-" + colorString + ".png";  // Path to the image file in 'images' folder
+    }
 }
