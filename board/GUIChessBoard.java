@@ -131,15 +131,15 @@ public void displayBoard() {
     private String getPieceLabel(ChessPiece piece) {
         char color = (piece.getColor() == PieceColor.Black) ? 'b' : 'w';
         char type;
-        switch (piece.getType()) {
-            case Rook: type = 'R'; break;
-            case Knight: type = 'N'; break;
-            case Bishop: type = 'B'; break;
-            case Queen: type = 'Q'; break;
-            case King: type = 'K'; break;
-            case Pawn: type = 'P'; break;
-            default: type = '?';
-        }
+        type = switch (piece.getType()) {
+            case Rook -> 'R';
+            case Knight -> 'N';
+            case Bishop -> 'B';
+            case Queen -> 'Q';
+            case King -> 'K';
+            case Pawn -> 'P';
+            default -> '?';
+        };
         return color + "" + type;
     }
 

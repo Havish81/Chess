@@ -48,24 +48,16 @@ public class ConsoleChessBoard extends ChessBoard {
     }
 
     private char displayPieceType(ChessPiece chessPiece) {
-        switch (chessPiece.getType()) {
-            case PieceType.Bishop:
-                return 'B';
-            case PieceType.King:
-                return 'K';
-            case PieceType.Knight:
-                return 'N';
-            case PieceType.Pawn:
-                return 'P';
-            case PieceType.Queen:
-                return 'Q';
-            case PieceType.Rook:
-                return 'R';
-            case PieceType.None:
-                return '?';
-            default:
-                return '?';
-        }
+        return switch (chessPiece.getType()) {
+            case PieceType.Bishop -> 'B';
+            case PieceType.King -> 'K';
+            case PieceType.Knight -> 'N';
+            case PieceType.Pawn -> 'P';
+            case PieceType.Queen -> 'Q';
+            case PieceType.Rook -> 'R';
+            case PieceType.None -> '?';
+            default -> '?';
+        };
     }
 
     private String displayEmptyCell(int row, int column) {
