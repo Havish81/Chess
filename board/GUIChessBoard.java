@@ -17,6 +17,8 @@ public class GUIChessBoard extends JPanel {
     private int selectedRow = -1;
     private int selectedCol = -1;
 
+    private PieceColor currentTurn = PieceColor.White;  // Track the current player's turn
+
     public GUIChessBoard(BiFunction<Integer, Integer, ChessPiece> pieceProvider, Function<int[], Boolean> moveExecutor) {
         this.pieceProvider = pieceProvider;
         this.moveExecutor = moveExecutor;
@@ -71,56 +73,58 @@ public class GUIChessBoard extends JPanel {
         return rowLabels;
     }
 
-// Inside GUIChessBoard.java
-public void displayBoard() {
-    boardPanel.removeAll();
-    
-    for (int row = 0; row < 8; row++) {
-        for (int col = 0; col < 8; col++) {
-            JButton square = new JButton();
-            square.setFont(new Font("Arial", Font.PLAIN, 24));
-            square.setHorizontalAlignment(SwingConstants.CENTER);
-    
-            ChessPiece piece = pieceProvider.apply(row, col);
-            if (piece != null) {
-                // Now call the getImagePath method on the ChessPiece instance
-                String imagePath = piece.getImagePath();  // This will use the method from ChessPiece
-                ImageIcon pieceImage = new ImageIcon(imagePath); // Load the image as an ImageIcon
-                square.setIcon(pieceImage); // Set the image icon on the button
-            }
-    
-            // Set the background color of the square
-            square.setBackground((row + col) % 2 == 0 ? Color.LIGHT_GRAY : Color.DARK_GRAY);
-    
-            final int r = row;
-            final int c = col;
-            square.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    handleSquareClick(r, c);
+    // Display the board
+    public void displayBoard() {
+        boardPanel.removeAll();
+
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                JButton square = new JButton();
+                square.setFont(new Font("Arial", Font.PLAIN, 24));
+                square.setHorizontalAlignment(SwingConstants.CENTER);
+
+                ChessPiece piece = pieceProvider.apply(row, col);
+                if (piece != null) {
+                    String imagePath = piece.getImagePath();
+                    ImageIcon pieceImage = new ImageIcon(imagePath);
+                    square.setIcon(pieceImage);
                 }
-            });
-    
-            boardPanel.add(square);
+
+                square.setBackground((row + col) % 2 == 0 ? Color.LIGHT_GRAY : Color.DARK_GRAY);
+
+                final int r = row;
+                final int c = col;
+                square.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        handleSquareClick(r, c);
+                    }
+                });
+
+                boardPanel.add(square);
+            }
         }
+
+        boardPanel.revalidate();
+        boardPanel.repaint();
     }
-    boardPanel.revalidate();
-    boardPanel.repaint();
-}
 
-    
-    
-
+    // Handle click on a square
     private void handleSquareClick(int row, int col) {
         if (selectedRow == -1 && selectedCol == -1) {
-            if (pieceProvider.apply(row, col) != null) {
+            ChessPiece piece = pieceProvider.apply(row, col);
+            if (piece != null && piece.getColor() == currentTurn) {
                 selectedRow = row;
                 selectedCol = col;
             }
         } else {
-            boolean moved = moveExecutor.apply(new int[]{selectedRow, selectedCol, row, col});
-            if (moved) {
-                System.out.println("Moved piece from (" + selectedRow + ", " + selectedCol + ") to (" + row + ", " + col + ")");
+            ChessPiece piece = pieceProvider.apply(selectedRow, selectedCol);
+            if (piece != null && piece.getColor() == currentTurn) {
+                boolean moved = moveExecutor.apply(new int[]{selectedRow, selectedCol, row, col});
+                if (moved) {
+                    System.out.println("Moved piece from (" + selectedRow + ", " + selectedCol + ") to (" + row + ", " + col + ")");
+                    switchTurn();  // After a valid move, switch turn
+                }
             }
             selectedRow = -1;
             selectedCol = -1;
@@ -128,28 +132,17 @@ public void displayBoard() {
         }
     }
 
-    private String getPieceLabel(ChessPiece piece) {
-        char color = (piece.getColor() == PieceColor.Black) ? 'b' : 'w';
-        char type;
-        type = switch (piece.getType()) {
-            case Rook -> 'R';
-            case Knight -> 'N';
-            case Bishop -> 'B';
-            case Queen -> 'Q';
-            case King -> 'K';
-            case Pawn -> 'P';
-            default -> '?';
-        };
-        return color + "" + type;
+    // Switch turns between White and Black
+    private void switchTurn() {
+        currentTurn = (currentTurn == PieceColor.White) ? PieceColor.Black : PieceColor.White;
     }
 
+    // Update board display (to be used after every move)
     public void updateDisplay() {
         displayBoard();
     }
 
-    /**
-     * Show the winner in a pop-up window and terminate the game.
-     */
+    // Show winner and end the game
     public void showWinner(String winner) {
         JOptionPane.showMessageDialog(frame, winner + " wins the game!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
         System.exit(0);  // Terminate the game after showing the message
