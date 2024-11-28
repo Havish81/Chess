@@ -5,12 +5,12 @@ Glohan
 Havish
 
 TO-DO
-1. Rules for Pawn (En passant, pawn promotion)
-2. Rules for Rook (castling)
-3. Rules for Bishop 
-4. Rules for Queen
-5. Rules for King (castling)
-6. Rules for Knight
+1. Rules for Pawn (En passant, pawn promotion) (Implemented: double sqaure move for first play of the pawn and only single after)
+2. Rules for Rook (castling) (Implemented: being able to move only in straight* directions)
+3. Rules for Bishop (Implemented: Only move in diagonal* directions)
+4. Rules for Queen (Implemented: Moves in both diagonal and straight direction)
+5. Rules for King (castling) (Implemented: Moves only one square)
+6. Rules for Knight (Implemented: Move in the weird way it is supposed to)
 7. Make sure piece cant move past other pieces
 2. Checks and stalemate
 
