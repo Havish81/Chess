@@ -26,14 +26,14 @@ public abstract class ChessPiece {
      * representing the possible moves from a given currentPosition.
      *
      * @param currentPosition The `currentPosition` parameter represents the
-     * current position of a piece on a game board. The method `possibleMoves`
-     * is expected to return an array of `PiecePosition` objects representing
-     * the possible moves that the piece can make from its current position.
+     *                        current position of a piece on a game board.
+     *                        The method `possibleMoves` is expected to
+     *                        return an array of `PiecePosition` objects
+     *                        representing the possible moves that the piece
+     *                        can make from its current position.
      * @return The method returns an array of possible moves.
      */
-    public PiecePosition[] possibleMoves(PiecePosition currentPosition) {
-        return null;
-    }
+    public abstract PiecePosition[] possibleMoves(PiecePosition currentPosition);
 
     /**
      * The getColor() function returns the color of a piece.
