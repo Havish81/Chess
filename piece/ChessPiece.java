@@ -61,4 +61,15 @@ public abstract class ChessPiece {
         String typeString = type.toString().toLowerCase(); // e.g., "pawn", "rook", etc.
         return "images/" + typeString + "-" + colorString + ".png";  // Path to the image file in 'images' folder
     }
+
+    /**
+     * Checks if this piece can capture the target piece.
+     *
+     * @param targetPiece The target piece to check.
+     * @return True if the target piece can be captured; false otherwise.
+     */
+    public boolean canCapture(ChessPiece targetPiece) {
+        // A piece can capture if the target is not null and of the opposite color
+        return targetPiece != null && targetPiece.getColor() != this.color;
+    }
 }

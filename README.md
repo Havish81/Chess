@@ -5,7 +5,7 @@ Glohan
 Havish
 
 TO-DO:
-1. Pawn: En passant, promotion (✔ double-square, single-square moves).
+1. Pawn: En passant, promotion, diagonal capture (✔ double-square, single-square moves).
 2. Rook: Castling (✔ straight moves).
 3. Bishop: (✔ diagonal moves).
 4. Queen: (✔ diagonal + straight moves).

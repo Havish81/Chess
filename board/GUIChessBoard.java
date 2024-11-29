@@ -113,44 +113,55 @@ public class GUIChessBoard extends JPanel {
         boardPanel.repaint();
     }
 
-private void handleSquareClick(int row, int col) {
-    if (selectedRow == -1 && selectedCol == -1) {
-        ChessPiece piece = pieceProvider.apply(row, col);
-        if (piece != null && piece.getColor() == currentTurn) {
-            selectedRow = row;
-            selectedCol = col;
-        }
-    } else {
-        ChessPiece piece = pieceProvider.apply(selectedRow, selectedCol);
-        if (piece != null && piece.getColor() == currentTurn) {
-            // Get the legal moves for the selected piece
-            PiecePosition currentPosition = new PiecePosition(PiecePositionRow.values()[selectedRow], PiecePositionColumn.values()[selectedCol]);
-            PiecePosition[] legalMoves = piece.possibleMoves(currentPosition);
-            
-            // Check if the destination (row, col) is a legal move
-            boolean isValidMove = false;
-            for (PiecePosition legalMove : legalMoves) {
-                if (legalMove.getRow() == PiecePositionRow.values()[row] && legalMove.getColumn() == PiecePositionColumn.values()[col]) {
-                    isValidMove = true;
-                    break;
+    private void handleSquareClick(int row, int col) {
+        if (selectedRow == -1 && selectedCol == -1) {
+            ChessPiece piece = pieceProvider.apply(row, col);
+            if (piece != null && piece.getColor() == currentTurn) {
+                selectedRow = row;
+                selectedCol = col;
+            }
+        } else {
+            ChessPiece selectedPiece = pieceProvider.apply(selectedRow, selectedCol);
+            if (selectedPiece != null && selectedPiece.getColor() == currentTurn) {
+                ChessPiece targetPiece = pieceProvider.apply(row, col);
+    
+                // Ensure the selected piece can capture or move
+                if (targetPiece == null || selectedPiece.canCapture(targetPiece)) {
+                    PiecePosition currentPosition = new PiecePosition(
+                        PiecePositionRow.values()[selectedRow], 
+                        PiecePositionColumn.values()[selectedCol]
+                    );
+                    PiecePosition[] legalMoves = selectedPiece.possibleMoves(currentPosition);
+    
+                    // Check if the destination (row, col) is a legal move
+                    boolean isValidMove = false;
+                    for (PiecePosition legalMove : legalMoves) {
+                        if (legalMove.getRow() == PiecePositionRow.values()[row] &&
+                            legalMove.getColumn() == PiecePositionColumn.values()[col]) {
+                            isValidMove = true;
+                            break;
+                        }
+                    }
+    
+                    if (isValidMove) {
+                        boolean moved = moveExecutor.apply(new int[]{selectedRow, selectedCol, row, col});
+                        if (moved) {
+                            System.out.println("Moved piece from (" + selectedRow + ", " + selectedCol + ") to (" + row + ", " + col + ")");
+                            switchTurn();  // After a valid move, switch turn
+                        }
+                    } else {
+                        System.out.println("Invalid move for " + selectedPiece.getType());
+                    }
+                } else {
+                    System.out.println("Cannot move to (" + row + ", " + col + ") - invalid capture");
                 }
             }
-            
-            if (isValidMove) {
-                boolean moved = moveExecutor.apply(new int[]{selectedRow, selectedCol, row, col});
-                if (moved) {
-                    System.out.println("Moved piece from (" + selectedRow + ", " + selectedCol + ") to (" + row + ", " + col + ")");
-                    switchTurn();  // After a valid move, switch turn
-                }
-            } else {
-                System.out.println("Invalid move for " + piece.getType());
-            }
+            selectedRow = -1;
+            selectedCol = -1;
+            displayBoard();
         }
-        selectedRow = -1;
-        selectedCol = -1;
-        displayBoard();
     }
-}
+    
 
 
     // Switch turns between White and Black
