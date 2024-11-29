@@ -5,15 +5,10 @@ Glohan
 Havish
 
 TO-DO:
-1. Pawn: En passant, promotion, diagonal capture (✔ double-square, single-square moves).
-2. Rook: Castling (✔ straight moves).
-3. Bishop: (✔ diagonal moves).
-4. Queen: (✔ diagonal + straight moves).
-5. King: Castling (✔ one-square move).
-6. Knight: (✔ L-shaped moves).
-7. Enforce no moving through pieces.
-8. Only knight can "jump" over pieces.
-9. Implement checks and stalemates.
+1. Pawn: diagonal capture, promotion
+2. Castling
+3. Implement checks and stalemates
+4. En passant
 
 
 Trivial changes
