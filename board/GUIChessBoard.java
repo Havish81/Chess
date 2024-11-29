@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import piece.ChessPiece;
+import piece.Knight;
 import piece.PieceColor;
 import piece.position.PiecePosition;
 import piece.position.PiecePositionColumn;
@@ -124,15 +125,17 @@ public class GUIChessBoard extends JPanel {
             ChessPiece selectedPiece = pieceProvider.apply(selectedRow, selectedCol);
             if (selectedPiece != null && selectedPiece.getColor() == currentTurn) {
                 ChessPiece targetPiece = pieceProvider.apply(row, col);
-    
+
                 // Ensure the selected piece can capture or move
                 if (targetPiece == null || selectedPiece.canCapture(targetPiece)) {
                     PiecePosition currentPosition = new PiecePosition(
-                        PiecePositionRow.values()[selectedRow], 
+                        PiecePositionRow.values()[selectedRow],
                         PiecePositionColumn.values()[selectedCol]
                     );
+
+                    // Get the legal moves for the selected piece
                     PiecePosition[] legalMoves = selectedPiece.possibleMoves(currentPosition);
-    
+
                     // Check if the destination (row, col) is a legal move
                     boolean isValidMove = false;
                     for (PiecePosition legalMove : legalMoves) {
@@ -142,7 +145,16 @@ public class GUIChessBoard extends JPanel {
                             break;
                         }
                     }
-    
+
+                    // Check for path-blocking, unless the piece is a knight
+                    if (isValidMove && !(selectedPiece instanceof Knight)) {
+                        boolean pathBlocked = isPathBlocked(new PiecePosition(PiecePositionRow.values()[selectedRow], PiecePositionColumn.values()[selectedCol]),
+                                new PiecePosition(PiecePositionRow.values()[row], PiecePositionColumn.values()[col]), pieceProvider);
+                        if (pathBlocked) {
+                            isValidMove = false;  // Block move if path is blocked
+                        }
+                    }
+
                     if (isValidMove) {
                         boolean moved = moveExecutor.apply(new int[]{selectedRow, selectedCol, row, col});
                         if (moved) {
@@ -161,8 +173,49 @@ public class GUIChessBoard extends JPanel {
             displayBoard();
         }
     }
-    
 
+    // Check if the path between the starting and target positions is blocked by a piece
+    private boolean isPathBlocked(PiecePosition currentPosition, PiecePosition targetPosition, BiFunction<Integer, Integer, ChessPiece> pieceProvider) {
+        int startRow = currentPosition.getRow().ordinal();
+        int startColumn = currentPosition.getColumn().ordinal();
+        int endRow = targetPosition.getRow().ordinal();
+        int endColumn = targetPosition.getColumn().ordinal();
+
+        // Check if the move is horizontal, vertical, or diagonal
+        if (startRow == endRow) {  // Horizontal move
+            int step = (endColumn > startColumn) ? 1 : -1;
+            for (int col = startColumn + step; col != endColumn; col += step) {
+                ChessPiece piece = pieceProvider.apply(startRow, col);
+                if (piece != null) {
+                    return true; // Path is blocked
+                }
+            }
+        } else if (startColumn == endColumn) {  // Vertical move
+            int step = (endRow > startRow) ? 1 : -1;
+            for (int row = startRow + step; row != endRow; row += step) {
+                ChessPiece piece = pieceProvider.apply(row, startColumn);
+                if (piece != null) {
+                    return true; // Path is blocked
+                }
+            }
+        } else if (Math.abs(startRow - endRow) == Math.abs(startColumn - endColumn)) {  // Diagonal move
+            int rowStep = (endRow > startRow) ? 1 : -1;
+            int colStep = (endColumn > startColumn) ? 1 : -1;
+            int row = startRow + rowStep;
+            int col = startColumn + colStep;
+
+            while (row != endRow && col != endColumn) {
+                ChessPiece piece = pieceProvider.apply(row, col);
+                if (piece != null) {
+                    return true; // Path is blocked
+                }
+                row += rowStep;
+                col += colStep;
+            }
+        }
+
+        return false; // Path is not blocked
+    }
 
     // Switch turns between White and Black
     private void switchTurn() {
