@@ -5,10 +5,11 @@ Glohan
 Havish
 
 TO-DO:
-1. Pawn promotion
+1. Restricts pawns capturing pieces to only when the piece is diagonal and restrict pawns moving diagonally all the time
 2. Castling
 3. Implement checks and stalemates
 4. En passant
+5. Pawn promotion
 
 
 Trivial changes
