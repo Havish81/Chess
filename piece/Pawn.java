@@ -25,6 +25,7 @@ public class Pawn extends ChessPiece {
      * The possibleMoves method calculates the legal forward moves for the pawn.
      * - Pawn can move forward one square.
      * - On the first move, it can move forward up to two squares.
+     * - Pawn can capture one square diagonally.
      * 
      * @param currentPosition The current position of the Pawn on the board.
      * @return An array of PiecePosition objects representing legal moves.
@@ -53,6 +54,16 @@ public class Pawn extends ChessPiece {
             newRow = currentRowIndex + 2 * direction;
             if (newRow >= 0 && newRow < 8) {
                 moves.add(new PiecePosition(PiecePositionRow.values()[newRow], PiecePositionColumn.values()[currentColumnIndex]));
+            }
+        }
+
+        // Diagonal capture moves (only if there is an opponent's piece diagonally)
+        if (currentRowIndex + direction >= 0 && currentRowIndex + direction < 8) {
+            if (currentColumnIndex - 1 >= 0) {
+                moves.add(new PiecePosition(PiecePositionRow.values()[currentRowIndex + direction], PiecePositionColumn.values()[currentColumnIndex - 1])); // Left diagonal
+            }
+            if (currentColumnIndex + 1 < 8) {
+                moves.add(new PiecePosition(PiecePositionRow.values()[currentRowIndex + direction], PiecePositionColumn.values()[currentColumnIndex + 1])); // Right diagonal
             }
         }
 

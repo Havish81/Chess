@@ -5,7 +5,7 @@ Glohan
 Havish
 
 TO-DO:
-1. Pawn: diagonal capture, promotion
+1. Pawn promotion
 2. Castling
 3. Implement checks and stalemates
 4. En passant
