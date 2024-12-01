@@ -149,9 +149,8 @@ public class Chess {
         }
     
         // Add rules for other piece types here...
-        return true; // Default: allow other pieces to move freely for now
+        return true;
     }
-    
 
     public static void main(String[] args) {
         new Chess();

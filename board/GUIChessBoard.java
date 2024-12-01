@@ -115,72 +115,75 @@ public class GUIChessBoard extends JPanel {
         boardPanel.repaint();
     }
 
-private void handleSquareClick(int row, int col) {
-    if (selectedRow == -1 && selectedCol == -1) {
-        ChessPiece piece = pieceProvider.apply(row, col);
-        if (piece != null && piece.getColor() == currentTurn) {
-            selectedRow = row;
-            selectedCol = col;
-        }
-    } else {
-        ChessPiece selectedPiece = pieceProvider.apply(selectedRow, selectedCol);
-        if (selectedPiece != null && selectedPiece.getColor() == currentTurn) {
-            ChessPiece targetPiece = pieceProvider.apply(row, col);
+    private void handleSquareClick(int row, int col) {
+        if (selectedRow == -1 && selectedCol == -1) {
+            ChessPiece piece = pieceProvider.apply(row, col);
 
-            // Ensure the selected piece can capture or move
-            if (targetPiece == null || selectedPiece.canCapture(targetPiece)) {
-                PiecePosition currentPosition = new PiecePosition(
-                    PiecePositionRow.values()[selectedRow],
-                    PiecePositionColumn.values()[selectedCol]
-                );
-
-                // Get the legal moves for the selected piece
-                PiecePosition[] legalMoves = selectedPiece.possibleMoves(currentPosition);
-
-                // Check if the destination (row, col) is a legal move
-                boolean isValidMove = false;
-                for (PiecePosition legalMove : legalMoves) {
-                    if (legalMove.getRow() == PiecePositionRow.values()[row] &&
-                        legalMove.getColumn() == PiecePositionColumn.values()[col]) {
-                        isValidMove = true;
-                        break;
-                    }
-                }
-
-                // Check for path-blocking, unless the piece is a knight or it's a pawn's diagonal capture
-                if (isValidMove && !(selectedPiece instanceof Knight)) {
-                    boolean pathBlocked = isPathBlocked(new PiecePosition(PiecePositionRow.values()[selectedRow], PiecePositionColumn.values()[selectedCol]),
-                            new PiecePosition(PiecePositionRow.values()[row], PiecePositionColumn.values()[col]), pieceProvider);
-
-                    // If pawn, check if the move is a diagonal capture
-                    if (selectedPiece instanceof Pawn && Math.abs(selectedRow - row) == 1 && Math.abs(selectedCol - col) == 1) {
-                        // Diagonal capture, path-blocking check not needed here
-                        pathBlocked = false;
-                    }
-
-                    if (pathBlocked) {
-                        isValidMove = false;  // Block move if path is blocked
-                    }
-                }
-
-                if (isValidMove) {
-                    boolean moved = moveExecutor.apply(new int[]{selectedRow, selectedCol, row, col});
-                    if (moved) {
-                        System.out.println("Moved piece from (" + selectedRow + ", " + selectedCol + ") to (" + row + ", " + col + ")");
-                        switchTurn();  // After a valid move, switch turn
-                    }
-                } else {
-                    System.out.println("Invalid move for " + selectedPiece.getType());
-                }
-            } else {
-                System.out.println("Cannot move to (" + row + ", " + col + ") - invalid capture");
+            if (piece != null && piece.getColor() == currentTurn) {
+                selectedRow = row;
+                selectedCol = col;
             }
+        } else {
+            ChessPiece selectedPiece = pieceProvider.apply(selectedRow, selectedCol);
+
+                if (selectedPiece != null && selectedPiece.getColor() == currentTurn) {
+                    ChessPiece targetPiece = pieceProvider.apply(row, col);
+
+                    // Ensure the selected piece can capture or move
+                    if (targetPiece == null || selectedPiece.canCapture(targetPiece)) {
+                        PiecePosition currentPosition = new PiecePosition(
+                            PiecePositionRow.values()[selectedRow],
+                            PiecePositionColumn.values()[selectedCol]
+                        );
+
+                        // Get the legal moves for the selected piece
+                        PiecePosition[] legalMoves = selectedPiece.possibleMoves(currentPosition);
+
+                        // Check if the destination (row, col) is a legal move
+                        boolean isValidMove = false;
+                        for (PiecePosition legalMove : legalMoves) {
+
+                            if (legalMove.getRow() == PiecePositionRow.values()[row] &&
+                                legalMove.getColumn() == PiecePositionColumn.values()[col]) {
+                                isValidMove = true;
+                                break;
+                                }
+                        }
+
+                        // Check for path-blocking, unless the piece is a knight or it's a pawn's diagonal capture
+                        if (isValidMove && !(selectedPiece instanceof Knight)) {
+                            boolean pathBlocked = isPathBlocked(new PiecePosition(PiecePositionRow.values()[selectedRow], PiecePositionColumn.values()[selectedCol]),
+                                    new PiecePosition(PiecePositionRow.values()[row], PiecePositionColumn.values()[col]), pieceProvider);
+
+                            // If pawn, check if the move is a diagonal capture
+                           if (selectedPiece instanceof Pawn && Math.abs(selectedRow - row) == 1 && Math.abs(selectedCol - col) == 1) {
+                               // Diagonal capture
+                                pathBlocked = false;
+                            }
+
+                            if (pathBlocked) {
+                                isValidMove = false;  // Block move if path is blocked
+                            }
+                        }
+
+                        if (isValidMove) {
+                            boolean moved = moveExecutor.apply(new int[]{selectedRow, selectedCol, row, col});
+                            if (moved) {
+                                System.out.println("Moved piece from (" + selectedRow + ", " + selectedCol + ") to (" + row + ", " + col + ")");
+                                switchTurn();  // After a valid move, switch turn
+                            }
+                        } else {
+                            System.out.println("Invalid move for " + selectedPiece.getType());
+                        }
+                    } else {
+                        System.out.println("Cannot move to (" + row + ", " + col + ") - invalid capture");
+                    }
+                }
+                selectedRow = -1;
+                selectedCol = -1;
+                displayBoard();
         }
-        selectedRow = -1;
-        selectedCol = -1;
-        displayBoard();
     }
-}
 
     // Check if the path between the starting and target positions is blocked by a piece
     private boolean isPathBlocked(PiecePosition currentPosition, PiecePosition targetPosition, BiFunction<Integer, Integer, ChessPiece> pieceProvider) {
@@ -228,7 +231,9 @@ private void handleSquareClick(int row, int col) {
     // Switch turns between White and Black
     private void switchTurn() {
         currentTurn = (currentTurn == PieceColor.White) ? PieceColor.Black : PieceColor.White;
+        frame.setTitle(currentTurn == PieceColor.White ? "White's Turn" : "Black's Turn");
     }
+
 
     // Update board display (to be used after every move)
     public void updateDisplay() {

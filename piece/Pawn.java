@@ -57,7 +57,7 @@ public class Pawn extends ChessPiece {
             }
         }
 
-        // Diagonal capture moves (only if there is an opponent's piece diagonally)
+        // Diagonal capture moves
         if (currentRowIndex + direction >= 0 && currentRowIndex + direction < 8) {
             if (currentColumnIndex - 1 >= 0) {
                 moves.add(new PiecePosition(PiecePositionRow.values()[currentRowIndex + direction], PiecePositionColumn.values()[currentColumnIndex - 1])); // Left diagonal

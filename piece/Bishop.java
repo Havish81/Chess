@@ -45,7 +45,7 @@ public class Bishop extends ChessPiece {
             int newRow = currentRowIndex;
             int newColumn = currentColumnIndex;
 
-            // Move in the current diagonal direction as far as possible (no boundaries)
+            // Move in the current diagonal direction as far as possible 
             while (true) {
                 newRow += direction[0];
                 newColumn += direction[1];
