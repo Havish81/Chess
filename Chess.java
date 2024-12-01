@@ -115,10 +115,43 @@ public class Chess {
         if (piece == null) {
             return false;
         }
-        // Basic move validation logic based on the piece type (simplified here)
-        // Implement specific rules for each piece type if needed
-        return true;
+    
+        // General rules for pawn movement
+        if (piece instanceof Pawn) {
+            Pawn pawn = (Pawn) piece;
+            int direction = (pawn.getColor() == PieceColor.White) ? -1 : 1;
+    
+            // Forward move
+            if (startCol == endCol) {
+                // Single step
+                if (endRow == startRow + direction && board[endRow][endCol] == null) {
+                    return true;
+                }
+                // Double step on first move
+                if ((startRow == 6 && pawn.getColor() == PieceColor.White || 
+                     startRow == 1 && pawn.getColor() == PieceColor.Black) &&
+                    endRow == startRow + 2 * direction &&
+                    board[startRow + direction][endCol] == null &&
+                    board[endRow][endCol] == null) {
+                    return true;
+                }
+            }
+    
+            // Diagonal capture
+            if (Math.abs(startCol - endCol) == 1 && endRow == startRow + direction) {
+                ChessPiece targetPiece = board[endRow][endCol];
+                if (targetPiece != null && targetPiece.getColor() != pawn.getColor()) {
+                    return true;
+                }
+            }
+    
+            return false; // Invalid pawn move
+        }
+    
+        // Add rules for other piece types here...
+        return true; // Default: allow other pieces to move freely for now
     }
+    
 
     public static void main(String[] args) {
         new Chess();
