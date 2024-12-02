@@ -31,6 +31,14 @@ java Chess
 ## UML Class Diagrams
 UML class diagrams are located in [Chess Class Diagrams.drawio.pdf](<Chess%20Class%20Diagrams.drawio.pdf>).
 
+![Chess Board Classes](image.png)
+
+![Game, Player, and Chess Classes](image-2.png)
+
+![PieceMove and PiecePosition Classes](image-3.png)
+
+![All Chess Pieces Classes](image-4.png)
+
 Accomplishments
 1. Correct placement of all pieces, with movement and capture based on standard chess rules.
 2. Alternating turns between players.
