@@ -28,6 +28,9 @@ javac Chess.java
 java Chess
 ```
 
+## UML Class Diagrams
+UML class diagrams are located in [Chess Class Diagrams.drawio.pdf](<Chess%20Class%20Diagrams.drawio.pdf>).
+
 Accomplishments
 1. Correct placement of all pieces, with movement and capture based on standard chess rules.
 2. Alternating turns between players.
