@@ -1,24 +1,34 @@
-VOLDEMORT-
+# VOLDEMORT - Chess Game
 
-Arseniy
-Tallon
-Glohan
-Havish
+**Team Members:**
+- Arseniy
+- Tallon
+- Glohan
+- Havish
 
 ![Start of the game](<Screenshot 2024-12-01 220836.png>)
 
-
-
 ![Checkmate!](image-1.png)
 
-Fall 2024, CS 3354.006
+**Course:** Fall 2024, CS 3354.006
 
-• One or more preview pictures to showcase the GUI Chess game interface.
+## Features
 
-• Display the Class Diagram.
+- Preview pictures showcasing the GUI Chess game interface.
+- Class diagram displayed.
 
-• Instructions on how to compile, start, and run the chess game
+## Compilation Instructions
 
-1. All pieces are placed at correct position and move and capture pieces based on proper chess rules
-2. Alternate turns
-3. Game ends when a player capture opponents king
+To compile and run the game, use the following commands:
+
+```bash
+javac Chess.java
+```
+```bash
+java Chess
+```
+
+Accomplishments
+1. Correct placement of all pieces, with movement and capture based on standard chess rules.
+2. Alternating turns between players.
+3. Game ends when a player's king is captured.
