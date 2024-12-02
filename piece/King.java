@@ -1,6 +1,5 @@
 package piece;
 
-import java.util.ArrayList;
 import piece.position.PiecePosition;
 import piece.position.PiecePositionColumn;
 import piece.position.PiecePositionRow;
@@ -29,7 +28,8 @@ public class King extends ChessPiece {
      */
     @Override
     public PiecePosition[] possibleMoves(PiecePosition currentPosition) {
-        ArrayList<PiecePosition> moves = new ArrayList<>();
+        PiecePosition[] moves = new PiecePosition[8];
+        int moveIndex = 0;
 
         // King can move one square in any direction (8 possible directions)
         int[][] directions = {
@@ -49,13 +49,14 @@ public class King extends ChessPiece {
             // Check if the new position is within bounds
             if (isInBounds(newRow, newColumn)) {
                 // Convert back to PiecePosition using enums for the new position
-                PiecePosition newPosition = new PiecePosition(PiecePositionRow.values()[newRow], PiecePositionColumn.values()[newColumn]);
-                moves.add(newPosition);  // Add valid move to list
+                moves[moveIndex++] = new PiecePosition(PiecePositionRow.values()[newRow], PiecePositionColumn.values()[newColumn]);
             }
         }
 
-        // Convert the list to an array and return it
-        return moves.toArray(new PiecePosition[0]);
+        // Return an array of moves without null entries
+        PiecePosition[] validMoves = new PiecePosition[moveIndex];
+        System.arraycopy(moves, 0, validMoves, 0, moveIndex);
+        return validMoves;
     }
 
     /**

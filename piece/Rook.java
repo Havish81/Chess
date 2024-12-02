@@ -1,6 +1,5 @@
 package piece;
 
-import java.util.ArrayList;
 import piece.position.PiecePosition;
 import piece.position.PiecePositionColumn;
 import piece.position.PiecePositionRow;
@@ -29,9 +28,10 @@ public class Rook extends ChessPiece {
      */
     @Override
     public PiecePosition[] possibleMoves(PiecePosition currentPosition) {
-        ArrayList<PiecePosition> moves = new ArrayList<>();
+        PiecePosition[] moves = new PiecePosition[14]; // Maximum of 14 moves (7 in each direction)
+        int moveIndex = 0;
 
-        // Rook moves along the rows and columns in 4 possible directions
+        // Directions: vertical and horizontal
         int[][] directions = {
             {1, 0}, {-1, 0}, {0, 1}, {0, -1} // Vertical and horizontal directions
         };
@@ -45,7 +45,7 @@ public class Rook extends ChessPiece {
             int newRow = currentRowIndex;
             int newColumn = currentColumnIndex;
 
-            // Move in the current row/column direction as far as possible (no boundaries)
+            // Move in the current row/column direction as far as possible
             while (true) {
                 newRow += direction[0];
                 newColumn += direction[1];
@@ -55,13 +55,14 @@ public class Rook extends ChessPiece {
                     break;
                 }
 
-                // Convert back to PiecePosition using enums for the new position
-                PiecePosition newPosition = new PiecePosition(PiecePositionRow.values()[newRow], PiecePositionColumn.values()[newColumn]);
-                moves.add(newPosition);  // Add valid move to list
+                // Add valid move to the moves array
+                moves[moveIndex++] = new PiecePosition(PiecePositionRow.values()[newRow], PiecePositionColumn.values()[newColumn]);
             }
         }
 
-        // Convert the list to an array and return it
-        return moves.toArray(new PiecePosition[0]);
+        // Return an array of valid moves, excluding null values
+        PiecePosition[] validMoves = new PiecePosition[moveIndex];
+        System.arraycopy(moves, 0, validMoves, 0, moveIndex);
+        return validMoves;
     }
 }

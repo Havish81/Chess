@@ -1,6 +1,5 @@
 package piece;
 
-import java.util.ArrayList;
 import piece.position.PiecePosition;
 import piece.position.PiecePositionColumn;
 import piece.position.PiecePositionRow;
@@ -32,7 +31,8 @@ public class Pawn extends ChessPiece {
      */
     @Override
     public PiecePosition[] possibleMoves(PiecePosition currentPosition) {
-        ArrayList<PiecePosition> moves = new ArrayList<>();
+        PiecePosition[] moves = new PiecePosition[6]; // Maximum of 6 moves (1 forward, 1 first move, 2 captures)
+        int moveIndex = 0;
 
         // Get the current row and column indices (0-7)
         int currentRowIndex = currentPosition.getRow().ordinal();
@@ -44,7 +44,7 @@ public class Pawn extends ChessPiece {
         // Move one square forward
         int newRow = currentRowIndex + direction;
         if (newRow >= 0 && newRow < 8) {
-            moves.add(new PiecePosition(PiecePositionRow.values()[newRow], PiecePositionColumn.values()[currentColumnIndex]));
+            moves[moveIndex++] = new PiecePosition(PiecePositionRow.values()[newRow], PiecePositionColumn.values()[currentColumnIndex]);
         }
 
         // Move two squares forward (only on the pawn's first move)
@@ -53,21 +53,23 @@ public class Pawn extends ChessPiece {
         if (isFirstMove) {
             newRow = currentRowIndex + 2 * direction;
             if (newRow >= 0 && newRow < 8) {
-                moves.add(new PiecePosition(PiecePositionRow.values()[newRow], PiecePositionColumn.values()[currentColumnIndex]));
+                moves[moveIndex++] = new PiecePosition(PiecePositionRow.values()[newRow], PiecePositionColumn.values()[currentColumnIndex]);
             }
         }
 
         // Diagonal capture moves
         if (currentRowIndex + direction >= 0 && currentRowIndex + direction < 8) {
             if (currentColumnIndex - 1 >= 0) {
-                moves.add(new PiecePosition(PiecePositionRow.values()[currentRowIndex + direction], PiecePositionColumn.values()[currentColumnIndex - 1])); // Left diagonal
+                moves[moveIndex++] = new PiecePosition(PiecePositionRow.values()[currentRowIndex + direction], PiecePositionColumn.values()[currentColumnIndex - 1]); // Left diagonal
             }
             if (currentColumnIndex + 1 < 8) {
-                moves.add(new PiecePosition(PiecePositionRow.values()[currentRowIndex + direction], PiecePositionColumn.values()[currentColumnIndex + 1])); // Right diagonal
+                moves[moveIndex++] = new PiecePosition(PiecePositionRow.values()[currentRowIndex + direction], PiecePositionColumn.values()[currentColumnIndex + 1]); // Right diagonal
             }
         }
 
-        // Convert the list to an array and return it
-        return moves.toArray(new PiecePosition[0]);
+        // Return an array of valid moves, excluding any null values
+        PiecePosition[] validMoves = new PiecePosition[moveIndex];
+        System.arraycopy(moves, 0, validMoves, 0, moveIndex);
+        return validMoves;
     }
 }

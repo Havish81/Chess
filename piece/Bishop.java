@@ -1,6 +1,5 @@
 package piece;
 
-import java.util.ArrayList;
 import piece.position.PiecePosition;
 import piece.position.PiecePositionColumn;
 import piece.position.PiecePositionRow;
@@ -29,7 +28,9 @@ public class Bishop extends ChessPiece {
      */
     @Override
     public PiecePosition[] possibleMoves(PiecePosition currentPosition) {
-        ArrayList<PiecePosition> moves = new ArrayList<>();
+        // Initialize an array with a maximum of 13 possible moves (bishop moves diagonally)
+        PiecePosition[] moves = new PiecePosition[13];
+        int moveCount = 0;
 
         // Bishop moves diagonally in 4 possible directions
         int[][] directions = {
@@ -57,11 +58,17 @@ public class Bishop extends ChessPiece {
 
                 // Convert back to PiecePosition using enums for the new position
                 PiecePosition newPosition = new PiecePosition(PiecePositionRow.values()[newRow], PiecePositionColumn.values()[newColumn]);
-                moves.add(newPosition);  // Add valid move to list
+
+                // Add the valid move to the array
+                if (moveCount < moves.length) {
+                    moves[moveCount++] = newPosition;
+                }
             }
         }
 
-        // Convert the list to an array and return it
-        return moves.toArray(new PiecePosition[0]);
+        // Return a new array with only the valid moves
+        PiecePosition[] validMoves = new PiecePosition[moveCount];
+        System.arraycopy(moves, 0, validMoves, 0, moveCount);
+        return validMoves;
     }
 }

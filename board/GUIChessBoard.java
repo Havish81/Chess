@@ -80,6 +80,7 @@ public class GUIChessBoard extends JPanel {
     }
 
     // Display the board
+    @SuppressWarnings("Convert2Lambda")
     public void displayBoard() {
         boardPanel.removeAll();
 

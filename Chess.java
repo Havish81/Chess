@@ -15,8 +15,8 @@ import piece.Rook;
  */
 public class Chess {
 
-    private ChessPiece[][] board;
-    private GUIChessBoard guiBoard;
+    private final ChessPiece[][] board;
+    private final GUIChessBoard guiBoard;
 
     /**
      * The constructor initializes a chess game by creating a chess board,
@@ -117,8 +117,7 @@ public class Chess {
         }
     
         // General rules for pawn movement
-        if (piece instanceof Pawn) {
-            Pawn pawn = (Pawn) piece;
+        if (piece instanceof Pawn pawn) {
             int direction = (pawn.getColor() == PieceColor.White) ? -1 : 1;
     
             // Forward move
